@@ -117,7 +117,8 @@ open class XAxisRenderer: NSObject, AxisRenderer
         {
             // no forced count
 
-            var first = interval == 0.0 ? 0.0 : ceil(yMin / interval) * interval
+            //var first = interval == 0.0 ? 0.0 : ceil(yMin / interval) * interval
+            var first = yMin
 
             if axis.centerAxisLabelsEnabled
             {
