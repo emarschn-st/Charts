@@ -124,7 +124,7 @@ open class XAxisRenderer: NSObject, AxisRenderer
             }
 
             //let last = interval == 0.0 ? 0.0 : (floor(yMax / interval) * interval).nextUp
-            let last = interval == 0.0 ? 0.0 : yMax
+            let last = interval == 0.0 ? 0.0 : yMax.nextUp
 
             if interval != 0.0, last != first
             {
