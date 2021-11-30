@@ -76,17 +76,26 @@ open class XAxisRenderer: NSObject, AxisRenderer
         // This is used to avoid repeated values when rounding values for display.
         if axis.granularityEnabled
         {
-            interval = Swift.max(interval, axis.granularity)
+            //interval = Swift.max(interval, axis.granularity)
+            if interval > axis.granularity {
+                var value = axis.granularity
+                while (value <= interval) {
+                    value += axis.granularity
+                }
+                interval = value
+            } else {
+                interval = axis.granularity
+            }
         }
 
         // Normalize interval
-        let intervalMagnitude = pow(10.0, Double(Int(log10(interval)))).roundedToNextSignificant()
+        /*let intervalMagnitude = pow(10.0, Double(Int(log10(interval)))).roundedToNextSignificant()
         let intervalSigDigit = Int(interval / intervalMagnitude)
         if intervalSigDigit > 5
         {
             // Use one order of magnitude higher, to avoid intervals like 0.9 or 90
             interval = floor(10.0 * Double(intervalMagnitude))
-        }
+        }*/
 
         var n = axis.centerAxisLabelsEnabled ? 1 : 0
 
