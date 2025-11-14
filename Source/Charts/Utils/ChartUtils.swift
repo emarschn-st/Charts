@@ -69,41 +69,30 @@ extension CGSize
     }
 }
 
-extension Double
-{
-    /// Rounds the number to the nearest multiple of it's order of magnitude, rounding away from zero if halfway.
-    func roundedToNextSignificant() -> Double
-    {
-        guard
-            !isInfinite,
-            !isNaN,
-            self != 0
-            else { return self }
-
-      let d = ceil(Double.log10(self < 0 ? -self : self))
-        let pw = 1 - Int(d)
-      let magnitude = Double.pow(10.0, Double(pw))
-        let shifted = (self * magnitude).rounded()
-        return shifted / magnitude
-    }
-
-    var decimalPlaces: Int
-    {
-        guard
-            !isNaN,
-            !isInfinite,
-            self != 0.0
-            else { return 0 }
-
-        let i = roundedToNextSignificant()
-
-        guard
-            !i.isInfinite,
-            !i.isNaN
-            else { return 0 }
-
-      return Int(ceil(-Double.log10(i))) + 2
-    }
+extension Double {
+  func roundedToNextSignificant() -> Double {
+    guard !isInfinite, !isNaN, self != 0 else { return self }
+    
+    // Use Foundation.log10
+    let d = ceil(Foundation.log10(self < 0 ? -self : self))
+    let pw = 1 - Int(d)
+    
+    // Use Foundation.pow
+    let magnitude = Foundation.pow(10.0, Double(pw))
+    let shifted = (self * magnitude).rounded()
+    return shifted / magnitude
+  }
+  
+  var decimalPlaces: Int {
+    guard !isNaN, !isInfinite, self != 0.0 else { return 0 }
+    
+    let i = roundedToNextSignificant()
+    
+    guard !i.isInfinite, !i.isNaN else { return 0 }
+    
+    // Use Foundation.log10
+    return Int(ceil(-Foundation.log10(i))) + 2
+  }
 }
 
 extension CGPoint
